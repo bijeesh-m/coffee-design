@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design 1 – Coffee Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5ede0;
+    --espresso: #2c1a0e;
+    --caramel: #c8783a;
+    --latte: #d4a96a;
+    --foam: #faf6f0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--espresso); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 3px solid var(--espresso);
+    background: var(--foam);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; letter-spacing: -1px; }
+  .logo span { color: var(--caramel); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--espresso); font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--caramel); }
+  .nav-btn {
+    background: var(--espresso); color: var(--cream);
+    padding: 0.6rem 1.4rem; border: none; font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .nav-btn:hover { background: var(--caramel); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 8vh;
+    border-bottom: 3px solid var(--espresso);
+  }
+  .hero-text {
+    padding: 6rem 4rem;
+    border-right: 3px solid var(--espresso);
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--cream);
+  }
+  .tag {
+    display: inline-block;
+    background: var(--caramel); color: white;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+    padding: 0.4rem 1rem; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.1; margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--caramel); }
+  .hero p { font-size: 1.05rem; line-height: 1.7; color: #5a3e2b; margin-bottom: 2.5rem; max-width: 420px; }
+  .btn-group { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    background: var(--espresso); color: var(--cream);
+    padding: 0.9rem 2rem; border: 3px solid var(--espresso);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--caramel); border-color: var(--caramel); }
+  .btn-secondary {
+    background: transparent; color: var(--espresso);
+    padding: 0.9rem 2rem; border: 3px solid var(--espresso);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--espresso); color: var(--cream); }
+
+  .hero-visual {
+    background: var(--espresso);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .coffee-art {
+    width: 260px; height: 260px;
+    border: 3px solid var(--latte);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .coffee-art::before {
+    content: '☕';
+    font-size: 6rem;
+  }
+  .coffee-art::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border: 1px dashed var(--caramel);
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hero-stat {
+    position: absolute; bottom: 3rem; right: 3rem;
+    background: var(--caramel);
+    padding: 1.5rem 2rem;
+    border: 2px solid var(--latte);
+  }
+  .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 3rem; color: white; line-height: 1; }
+  .hero-stat .label { font-size: 0.75rem; color: rgba(255,255,255,0.8); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* MENU */
+  .menu { padding: 5rem 4rem; }
+  .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3rem; }
+  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; }
+  .section-header a { font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--caramel); text-decoration: none; }
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 3px solid var(--espresso); }
+  .menu-card {
+    padding: 2.5rem 2rem;
+    border-right: 3px solid var(--espresso);
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .menu-card:last-child { border-right: none; }
+  .menu-card:hover { background: var(--espresso); color: var(--cream); }
+  .menu-card:hover .price { color: var(--latte); }
+  .menu-card:hover .coffee-icon { filter: brightness(10); }
+  .coffee-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; transition: filter 0.3s; }
+  .menu-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .menu-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.7; margin-bottom: 1rem; }
+  .price { font-size: 1.2rem; font-weight: 500; color: var(--caramel); transition: color 0.3s; }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    background: var(--espresso); color: var(--cream);
+    padding: 5rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    border-top: 3px solid var(--espresso);
+    border-bottom: 3px solid var(--caramel);
+  }
+  .quote-mark { font-family: 'Playfair Display', serif; font-size: 8rem; line-height: 0.5; color: var(--caramel); }
+  blockquote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; line-height: 1.5; margin-top: 1rem; }
+  cite { display: block; margin-top: 1.5rem; font-style: normal; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+  .hours { border-left: 3px solid var(--caramel); padding-left: 3rem; display: flex; flex-direction: column; justify-content: center; }
+  .hours h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--latte); }
+  .hour-row { display: flex; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+
+  /* FOOTER */
+  footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem 4rem;
+    background: var(--foam);
+    border-top: 3px solid var(--espresso);
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+  .footer-copy { font-size: 0.8rem; opacity: 0.5; }
+  .socials { display: flex; gap: 1rem; }
+  .socials a {
+    width: 38px; height: 38px; border: 2px solid var(--espresso);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--espresso); font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .socials a:hover { background: var(--espresso); color: var(--cream); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Brew<span>&</span>Co</div>
+  <ul class="nav-links">
+    <li><a href="#">Menu</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Locations</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+  <button class="nav-btn">Order Now</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="tag">Est. 2010 · Artisan Coffee</span>
+    <h1>Life is too short for <em>bad coffee</em></h1>
+    <p>Hand-picked beans from ethical farms across Ethiopia, Colombia, and Guatemala — roasted fresh every morning in our micro-roastery.</p>
+    <div class="btn-group">
+      <button class="btn-primary">Explore Menu</button>
+      <button class="btn-secondary">Our Story</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="coffee-art"></div>
+    <div class="hero-stat">
+      <div class="num">24+</div>
+      <div class="label">Signature Blends</div>
+    </div>
+  </div>
+</section>
+
+<section class="menu">
+  <div class="section-header">
+    <h2>Today's Specials</h2>
+    <a href="#">View Full Menu →</a>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <span class="coffee-icon">☕</span>
+      <h3>Velvet Espresso</h3>
+      <p>Double shot with silky microfoam, caramel undertones and a rich crema finish.</p>
+      <div class="price">$4.50</div>
+    </div>
+    <div class="menu-card">
+      <span class="coffee-icon">🧊</span>
+      <h3>Cold Brew Nitro</h3>
+      <p>18-hour steeped cold brew infused with nitrogen for a creamy, smooth texture.</p>
+      <div class="price">$6.00</div>
+    </div>
+    <div class="menu-card">
+      <span class="coffee-icon">🍵</span>
+      <h3>Matcha Latte</h3>
+      <p>Ceremonial grade Japanese matcha whisked with oat milk and a hint of vanilla.</p>
+      <div class="price">$5.50</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div>
+    <div class="quote-mark">"</div>
+    <blockquote>The best morning ritual I've ever had. Walking in here feels like coming home — the aroma alone is worth the trip.</blockquote>
+    <cite>— Maria Santana, Regular since 2015</cite>
+  </div>
+  <div class="hours">
+    <h3>Opening Hours</h3>
+    <div class="hour-row"><span>Monday – Friday</span><span>7:00 – 20:00</span></div>
+    <div class="hour-row"><span>Saturday</span><span>8:00 – 21:00</span></div>
+    <div class="hour-row"><span>Sunday</span><span>9:00 – 18:00</span></div>
+    <div class="hour-row"><span>Public Holidays</span><span>10:00 – 16:00</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Brew&amp;Co</div>
+  <div class="footer-copy">© 2025 Brew&amp;Co. All rights reserved.</div>
+  <div class="socials">
+    <a href="#">ig</a>
+    <a href="#">tw</a>
+    <a href="#">fb</a>
+  </div>
+</footer>
+
+</body>
+</html>
